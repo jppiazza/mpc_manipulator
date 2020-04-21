@@ -10,9 +10,9 @@ To run, do the following:
 
 List of Files
 
-mpc.m: Run model predictive control for the manipulator
+mpc.m: Runs model predictive control for the manipulator
 
-ctc.m: Run a general computed torque control for the manipulator
+ctc.m: Runs a general computed torque controller for the manipulator
 
 twoLinkRobot.m: Creates the discretized A and B matrices for the two-link planar manipulator, as well as the next state given a current state
 
