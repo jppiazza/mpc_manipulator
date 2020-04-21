@@ -1,4 +1,4 @@
-function [ Ad, Bd, qNext ] = twoLinkRobot(Kd, Kp, q, qD, u, dt)
+function [ Ad, Bd, M, V, qNext ] = twoLinkRobot(Kd, Kp, q, qD, u, dt)
 
 l1 = 1; l2 = 1; m1 = 1; m2 = 1;
 
@@ -27,9 +27,6 @@ Ad = expm(A*dt);
 Bd = (Ad - eye(4))*(A\B);
 
 qNext = Ad*[qD; q] + Bd*u;
-
-%qNextPrime = A*[qD; q] + B*u;
-%qNext = dt*qNextPrime + [qD; q];
 
 end
 
