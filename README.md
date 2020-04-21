@@ -8,4 +8,9 @@ To run, do the following:
 4. Run the middle section of main.m to plot the results.
 5. Run the bottom section of main.m to visualize the manipulator trajectories. This requires installation of Peter Corke's Robotics Toolbox, which is open source.
 
+List of Files
 
+mpc.m: Run model predictive control for the manipulator
+ctc.m: Run a general computed torque control for the manipulator
+twoLinkRobot.m: Creates the discretized A and B matrices for the two-link planar manipulator, as well as the next state given a current state
+main.m: The main file that runs the two control algorithms and does plotting and visualization.
