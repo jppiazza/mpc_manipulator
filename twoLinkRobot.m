@@ -9,10 +9,14 @@ m22 = (l2^2)*m2;
 
 M = [m11 m12; m21 m22];
 
-v1 = -m2*l1*l2*sin(q(2))*(qD(2)^2) - 2*m2*l1*l2*sin(q(2))*qD(1)*qD(2);
-v2 = m2*l1*l2*sin(q(2))*(qD(1)^2);
+c11 = -2*m2*l1*l2*sin(q(2))*qD(2);
+c12 = -m2*l1*l2*sin(q(2))*qD(2);
+c21 = m2*l1*l2*sin(q(2))*qD(1);
+c22 = 0;
 
-V = [v1; v2];
+C = [c11 c12; c21 c22];
+
+V = C*qD;
 
 % g = -9.8;
 % g1 = m2*l2*g*cos(th1 + th2) + (m1 + m2)*l1*g*cos(th1);
@@ -20,7 +24,7 @@ V = [v1; v2];
 % 
 % G = [g1; g2];
 
-A = [M\(-Kd - V) M\(-Kp); eye(2) zeros(2,2)];
+A = [M\(-Kd - C) M\(-Kp); eye(2) zeros(2,2)];
 B = [M\Kp; zeros(2,2)];
 
 Ad = expm(A*dt);

@@ -10,7 +10,7 @@ Kd = [2*sqrt(10) 0; 0 2*sqrt(10)];
 Kp = 10*eye(2);
 
 dt = 0.01;
-N = 10;
+N = 10;         % the length of the horizon for MPC
 t = 0:dt:5;
 T = size(t, 2);
 
@@ -27,8 +27,9 @@ qGoal = repmat(qGoal1, 1, T+N);
 % 2) Computed Torque controller
 [ qCTC, qDCTC, tau ] = ctc(qGoal, Kd, Kp, dt, T);
     
+saveDir = './results/'; mkdir(saveDir);
 filename = strcat('mpc_ctc_N_', string(N), '_Time_', datestr(now, 'HH-MM-SS'));
-save(strcat('results/',filename));
+save(strcat(saveDir, filename));
 
 %% Plot graphs
 
