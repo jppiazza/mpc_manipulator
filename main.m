@@ -10,16 +10,16 @@ Kd = [2*sqrt(10) 0; 0 2*sqrt(10)];
 Kp = 10*eye(2);
 
 dt = 0.01;
-N = 10;         % the length of the horizon for MPC
+N = 20;         % the length of the horizon for MPC
 t = 0:dt:5;
 T = size(t, 2);
 
 qGoal1 = [pi/4; pi/8];
-%qGoal2 = [0;0];
-qGoal = repmat(qGoal1, 1, T+N);
-%qGoal = [repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
-%         repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
-%         repmat(qGoal1, 1, T) repmat(qGoal2, 1, T)];
+qGoal2 = [0;0];
+%qGoal = repmat(qGoal1, 1, T+N);
+qGoal = [repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
+         repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
+         repmat(qGoal1, 1, T) repmat(qGoal2, 1, T)];
 
 % 1) MPC controller
 [ qMPC, qDMPC ] = mpc(qGoal, Kd, Kp, dt, N, T);
@@ -66,9 +66,16 @@ mdl_planar2;
 clone = SerialLink(p2,'name','clone');
 
 figure;
-for i = 1:size(qCTC,2)
-    p2.plot(qCTC(:,2*i)','noname','nowrist','linkcolor','b','fps',10000,'base');
-    hold on;
-    clone.plot(qMPC(:,2*i)','noname','nowrist','linkcolor','r','fps',10000,'base');
-end
+set(gcf, 'Position',get(0, 'Screensize'));
 
+for i = 1:size(qCTC,2)
+    p2.plot(qCTC(:,2*i)','noname','nowrist','linkcolor','g','fps',100000);
+    hold on;
+    clone.plot(qMPC(:,2*i)','noname','nowrist','linkcolor','b','fps',100000);
+    % custom legend
+    h = zeros(2, 1);
+    h(1) = plot(NaN,NaN,'g','LineWidth',5);
+    h(2) = plot(NaN,NaN,'b','LineWidth',5);
+    legend(h, 'CTC','MPC');
+    title('Controller Performance with Alternating Goal Angles');
+end
