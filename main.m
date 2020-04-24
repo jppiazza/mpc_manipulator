@@ -69,13 +69,13 @@ figure;
 set(gcf, 'Position',get(0, 'Screensize'));
 
 for i = 1:size(qCTC,2)
-    p2.plot(qCTC(:,2*i)','noname','nowrist','linkcolor','g','fps',100000);
+    p2.plot(qCTC(:,2*i)','noname','nowrist','linkcolor','b','fps',100000);
     hold on;
-    clone.plot(qMPC(:,2*i)','noname','nowrist','linkcolor','b','fps',100000);
+    clone.plot(qMPC(:,2*i)','noname','nowrist','linkcolor','g','fps',100000);
     % custom legend
     h = zeros(2, 1);
-    h(1) = plot(NaN,NaN,'g','LineWidth',5);
-    h(2) = plot(NaN,NaN,'b','LineWidth',5);
+    h(1) = plot(NaN,NaN,'b','LineWidth',5);
+    h(2) = plot(NaN,NaN,'g','LineWidth',5);
     legend(h, 'CTC','MPC');
     title('Controller Performance with Alternating Goal Angles');
 end
