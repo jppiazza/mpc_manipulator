@@ -4,22 +4,22 @@ clear; clc; close all;
 
 % Can change the below parameters, or the goal configurations, as
 % appropriate
-% Note that the goal configurations have to be at least 2x(T+N)
+% Note that the goal configurations have to be at least 2 x (T+N)
 
 Kd = [2*sqrt(10) 0; 0 2*sqrt(10)];
 Kp = 10*eye(2);
 
 dt = 0.01;
-N = 20;         % the length of the horizon for MPC
+N = 10;         % the length of the horizon for MPC
 t = 0:dt:5;
 T = size(t, 2);
 
 qGoal1 = [pi/4; pi/8];
-qGoal2 = [0;0];
-%qGoal = repmat(qGoal1, 1, T+N);
-qGoal = [repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
-         repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
-         repmat(qGoal1, 1, T) repmat(qGoal2, 1, T)];
+qGoal = repmat(qGoal1, 1, T+N);
+%qGoal2 = [0;0];
+%qGoal = [repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
+%         repmat(qGoal1, 1, floor(T/4)) repmat(qGoal2, 1, floor(T/4))...
+%         repmat(qGoal1, 1, T) repmat(qGoal2, 1, T)];
 
 % 1) MPC controller
 [ qMPC, qDMPC ] = mpc(qGoal, Kd, Kp, dt, N, T);
